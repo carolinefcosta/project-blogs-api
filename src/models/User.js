@@ -2,6 +2,7 @@ module.exports = (Sequelize, DataTypes) => {
   const User = Sequelize.define('User', {
     id: {
       primaryKey: true,
+      autoIcrement: true,
       type: DataTypes.INTEGER,
     },
     displayName: { type: DataTypes.STRING },
@@ -10,7 +11,7 @@ module.exports = (Sequelize, DataTypes) => {
     image: { type: DataTypes.STRING }
   },
   {
-    timestamp: false,
+    timestamps: false,
     underscored: true,
     tableName: 'users'
   })
