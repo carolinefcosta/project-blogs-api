@@ -9,6 +9,14 @@ const getAll = async () => {
   return { type: null, message: users };
 };
 
+const getById = async (id) => {
+  const user = await User.findByPk(id, { attributes: { exclude: 'password' } });
+
+  if (!user) return { type: 404, message: 'User does not exist' };
+
+  return { type: null, message: user };
+};
+
 const findUser = async (email) => User.findOne({ where: { email } });
 
 const createLogin = async (email, password) => {
@@ -43,6 +51,7 @@ const createUser = async (displayName, email, password, image) => {
 
 module.exports = {
   getAll,
+  getById,
   createLogin,
   createUser,
 };

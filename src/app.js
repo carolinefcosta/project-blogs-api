@@ -26,6 +26,7 @@ app.post(
   controller.createUser,
   );
 app.get('/user', validateToken, controller.getAll);
+app.get('/user/:id', validateToken, controller.getById);
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
