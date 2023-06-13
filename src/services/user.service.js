@@ -3,6 +3,12 @@ const { createToken } = require('../utils/jwt');
 
 const TYPE_400 = 400;
 
+const getAll = async () => {
+  const users = await User.findAll({ attributes: { exclude: 'password' } });
+
+  return { type: null, message: users };
+};
+
 const findUser = async (email) => User.findOne({ where: { email } });
 
 const createLogin = async (email, password) => {
@@ -23,7 +29,7 @@ const createUser = async (displayName, email, password, image) => {
   const verifyEmail = await findUser(email);
 
   if (verifyEmail) return { type: 409, message: 'User already registered' };
-  
+
   const user = await User.create({ displayName, email, password, image });
 
   const token = createToken({
@@ -36,6 +42,7 @@ const createUser = async (displayName, email, password, image) => {
 };
 
 module.exports = {
+  getAll,
   createLogin,
   createUser,
 };

@@ -1,5 +1,12 @@
 const service = require('../services/user.service');
 
+const getAll = async (req, res) => {
+  const { type, message } = await service.getAll();
+  if (type) return res.status(type).json({ message });
+
+  return res.status(200).json(message);
+};
+
 const createLogin = async (req, res) => {
   const { email, password } = req.body;
   const { type, message } = await service.createLogin(email, password);
@@ -17,6 +24,7 @@ const createUser = async (req, res) => {
 };
 
 module.exports = {
+  getAll,
   createLogin,
   createUser,
 };
